@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Book Store Template, Free CSS Template, CSS Website Layout</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<script>
+function searchProducts() {
+    var input, filter, productBoxes, title, paragraphs, i, j, txtValueTitle, txtValueParagraph, productMatch;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    productBoxes = document.querySelectorAll(".templatemo_product_box");
+
+    for (i = 0; i < productBoxes.length; i++) {
+        title = productBoxes[i].getElementsByTagName("h1")[0];
+        paragraphs = productBoxes[i].getElementsByTagName("p");
+        productMatch = false;
+
+        if (title) {
+            txtValueTitle = title.textContent || title.innerText;
+            if (txtValueTitle.toUpperCase().indexOf(filter) > -1) {
+                productMatch = true;
+            }
+        }
+
+        for (j = 0; j < paragraphs.length; j++) {
+            txtValueParagraph = paragraphs[j].textContent || paragraphs[j].innerText;
+            if (txtValueParagraph.toUpperCase().indexOf(filter) > -1) {
+                productMatch = true;
+                break; // No es necesario buscar más en los párrafos
+            }
+        }
+
+        if (productMatch) {
+            productBoxes[i].style.display = "";
+        } else {
+            productBoxes[i].style.display = "none";
+        }
+    }
+}
+</script>
+</head>
+<body>
+<!--  Free CSS Templates from www.templatemo.com -->
+
+<div id="templatemo_container">
+	<div id="templatemo_menu">
+    	<ul>
+            <li><a href="index.html" class="current">inicio</a></li>
+            <li><a href="">boletine</a></li>
+            <li><a href="">libro historico</a></li>            
+            <li><a href="">canal web</a></li>  
+            <li><a href="#">Contact</a></li> 
+            <li><a href="#"></a></li>
+    	</ul>
+    </div> <!-- end of menu -->
+    
+    <div id="templatemo_header">
+    	<div id="templatemo_special_offers">
+        	<p>
+                <span></span> ¡Todas Nuestra Historia de Venezuela Aqui archivo Miraflores Web! 
+        	</p>
+			<div class="buy_now_button"><a href="subpage.html" style="margin-left: 50px;">Buscar Boletin</a></div>
+        </div>
+         <div id="templatemo_new_books">
+        	<p>
+             ¡Boletin historico disponible aqui archivo Miraflores Web! 
+        	</p>
+            <ul>
+                <p>* Descargar boletin</p>
+                <p>* Sumario - Referencia libro</p>
+             </ul>
+            <div class="detail_button"><a href="subpage.html" style="margin-left: 50px;">Buscar Libro</a></div>
+       
+        </div>
+    </div> <!-- end of header -->
+    
+    <div id="templatemo_content">
+    	
+        <div id="templatemo_content_left">
+        	<div class="templatemo_content_left_section">
+            	<h1>Categoria libro</h1>
+                <ul>
+                    <li><a href="">historia venezuela</a></li>
+                    <li><a href="">geografia</a></li>
+                    <li><a href="#">politica</a></li>
+                    
+            	</ul>
+            </div>
+			<div class="templatemo_content_left_section">
+            	<h1></h1>
+                <ul>
+                    <li><a href="#"></a></li>
+                    <li><a href="#">M</a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="" target="_parent"></a></li>
+            	</ul>
+            </div>
+            
+            <div class="templatemo_content_left_section">                
+                <a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:88px;height:31px" src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" width="88" height="31" vspace="8" border="0" /></a>
+<a href="http://jigsaw.w3.org/css-validator/check/referer"><img style="border:0;width:88px;height:31px"  src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" vspace="8" border="0" /></a>
+			</div>
+        </div> <!-- end of content left -->
+        
+
+        <div class="search-container">
+            <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Buscar Boletin Historico...">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
+        <div id="templatemo_content_right">
+        	<div class="templatemo_product_box">
+            	<h1> Boletin Historico<span>(001)</span></h1>
+   	      <img src="images/templatemo_image_01.jpg" alt="image" />
+                <div class="product_info">
+                	<p>Fecha Publicación: enero 1996 / 1977</p>
+                    <p>Volumen: XXXVII - XXXVIII</p>
+                    <p>Numero Edicion: 147 - 148 - 149 </p>
+                    <p>Tema : Sucesión presidencial - Cipriano Castro - Rafael Simón Urbina Sucesos de Febrero de 1936 </p>
+                    <p>Palabra Clave: Simón Bolívar - Sucesos de Febrero de 1936 -Lagunillas de Agua, Sucesión Crespo - Historia de Venezuela - Revolución Venezolana</p>
+                    <p>Intitución:Ministerio de la Secretaría de la Presidencia</p>
+                    <p>ubicación:Palacio de Miraflores, Caracas, Venezuela</p>
+                    <p>Indentificador:001</p> 
+                    
+                    <div class="buy_now_button"><a href="boletin1.html">Descargar</a></div>
+                    <div class="detail_button"><a href="sumario_boletin1.html">Sumario</a></div>
+                </div>
+                <div class="cleaner">&nbsp;</div>
+            </div>
+            
+            <div class="cleaner_with_width">&nbsp;</div>
+            
+            <div class="templatemo_product_box">
+            	<h1>boletin historico  <span>(002)</span></h1>
+       	    <img src="images/templatemo_image_02.jpg" alt="image" />
+                <div class="product_info">
+                	<p>Fecha Publicación: </p>
+                    <p>Volumen: XXXVII - XXXVIII</p>
+                    <p>Numero Edicion:  </p>
+                    <p>Tema : </p>
+                    <p>Palabra Clave:</p>
+                    <p>Intitución:</p>
+                    <p>ubicación:</p>
+                    <p>Indentificador: </p> 
+                    
+                    <div class="buy_now_button"><a href="">Descargar</a></div>
+                    <div class="detail_button"><a href="">Sumario</a></div>
+                
+                </div>
+                <div class="cleaner">&nbsp;</div>
+            </div>
+            
+            <div class="cleaner_with_height">&nbsp;</div>
+            
+            <div class="templatemo_product_box">
+            	<h1>boletin<span>(003)</span></h1>
+   	      <img src="images/templatemo_image_03.jpg" alt="image" />
+                <div class="product_info">
+                	<p>Fecha Publicación: enero 1996 / 1977</p>
+                    <p>Volumen: XXXVII - XXXVIII</p>
+                    <p>Numero Edicion: 147 - 148 - 149 </p>
+                    <p>Tema :  </p>
+                    <p>Palabra Clave: </p>
+                    <p>Intitución:</p>
+                    <p>ubicación:</p>
+                    <p>Indentificador:</p> 
+                    
+                    <div class="buy_now_button"><a href="">Descargar</a></div>
+                    <div class="detail_button"><a href="">Sumario</a></div>
+                </div>
+                   
+                
+                <div class="cleaner">&nbsp;</div>
+            </div>
+            
+            <div class="cleaner_with_width">&nbsp;</div>
+            
+            <div class="templatemo_product_box">
+            	<h1>titulo<span>(autor)</span></h1>
+            	<img src="images/templatemo_image_04.jpg" alt="image" />
+                <div class="product_info">
+                	<p>Fecha Publicación: enero 1996 / 1977</p>
+                    <p>Volumen: XXXVII - XXXVIII</p>
+                    <p>Numero Edicion: 147 - 148 - 149 </p>
+                    <p>Tema :  </p>
+                    <p>Palabra Clave: </p>
+                    <p>Intitución:</p>
+                    <p>ubicación:</p>
+                    <p>Indentificador:001</p> 
+                    
+                    <div class="buy_now_button"><a href="">Descargar</a></div>
+                    <div class="detail_button"><a href="">Sumario</a></div>
+                   
+                </div>
+                <div class="cleaner">&nbsp;</div>
+            </div>
+            
+            <div class="cleaner_with_height">&nbsp;</div>
+            
+            
+        </div> <!-- end of content right -->
+    
+    	<div class="cleaner_with_height">&nbsp;</div>
+    </div> <!-- end of content -->
+    
+    <div id="templatemo_footer">
+    
+	       <a href="subpage.html">Home</a> | <a href="subpage.html">Search</a> | <a href="subpage.html">Books</a> | <a href="#">New Releases</a> | <a href="#">FAQs</a> | <a href="#">Contact Us</a><br />
+        Copyright © 2024 <a href="#"><strong>Your Company Name</strong></a> 
+        <!-- Credit: www.templatemo.com -->	</div> 
+    <!-- end of footer -->
+<!--  Free CSS Template www.templatemo.com -->
+</div> <!-- end of container -->
+<!-- templatemo 086 book store -->
+<!-- 
+Book Store Template 
+http://www.templatemo.com/preview/templatemo_086_book_store 
+-->
+</body>
+</html>
