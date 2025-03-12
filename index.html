@@ -9,37 +9,40 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
 <script>
 function searchProducts() {
-    var input, filter, productBoxes, title, paragraphs, i, j, txtValueTitle, txtValueParagraph, productMatch;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    productBoxes = document.querySelectorAll(".templatemo_product_box");
+    var input = document.getElementById("searchInput");
+    var filter = normalizeText(input.value).toUpperCase(); // Normalizar y convertir a mayúsculas
+    var productBoxes = document.querySelectorAll(".templatemo_product_box");
 
-    for (i = 0; i < productBoxes.length; i++) {
-        title = productBoxes[i].getElementsByTagName("h1")[0];
-        paragraphs = productBoxes[i].getElementsByTagName("p");
-        productMatch = false;
+    for (var i = 0; i < productBoxes.length; i++) {
+        var title = productBoxes[i].getElementsByTagName("h1")[0];
+        var paragraphs = productBoxes[i].getElementsByTagName("p");
+        var productMatch = false;
 
+        // Verificar coincidencia en el título
         if (title) {
-            txtValueTitle = title.textContent || title.innerText;
-            if (txtValueTitle.toUpperCase().indexOf(filter) > -1) {
+            var txtValueTitle = normalizeText(title.textContent || title.innerText).toUpperCase();
+            if (txtValueTitle.includes(filter)) {
                 productMatch = true;
             }
         }
 
-        for (j = 0; j < paragraphs.length; j++) {
-            txtValueParagraph = paragraphs[j].textContent || paragraphs[j].innerText;
-            if (txtValueParagraph.toUpperCase().indexOf(filter) > -1) {
+        // Verificar coincidencia en los párrafos
+        for (var j = 0; j < paragraphs.length; j++) {
+            var txtValueParagraph = normalizeText(paragraphs[j].textContent || paragraphs[j].innerText).toUpperCase();
+            if (txtValueParagraph.includes(filter)) {
                 productMatch = true;
-                break; // No es necesario buscar más en los párrafos
+                break;
             }
         }
 
-        if (productMatch) {
-            productBoxes[i].style.display = "";
-        } else {
-            productBoxes[i].style.display = "none";
-        }
+        // Mostrar u ocultar la caja del producto
+        productBoxes[i].style.display = productMatch ? "" : "none";
     }
+}
+
+// Función auxiliar para normalizar texto (eliminar acentos y caracteres especiales)
+function normalizeText(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Elimina acentos
 }
 </script>
 </head>
