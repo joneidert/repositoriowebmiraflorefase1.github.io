@@ -9,42 +9,58 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
 <script>
 function searchProducts() {
-    var input, filter, productBoxes, title, paragraphs, i, j, txtValueTitle, txtValueParagraph, productMatch;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    productBoxes = document.querySelectorAll(".templatemo_product_box");
+    var input = document.getElementById("searchInput");
+    var filter = normalizeText(input.value).toUpperCase(); // Normalizar y convertir a mayúsculas
+    var productBoxes = document.querySelectorAll(".templatemo_product_box");
 
-    for (i = 0; i < productBoxes.length; i++) {
-        title = productBoxes[i].getElementsByTagName("h1")[0];
-        paragraphs = productBoxes[i].getElementsByTagName("p");
-        productMatch = false;
+    for (var i = 0; i < productBoxes.length; i++) {
+        var title = productBoxes[i].getElementsByTagName("h1")[0];
+        var paragraphs = productBoxes[i].getElementsByTagName("p");
+        var listItems = productBoxes[i].getElementsByTagName("li"); // Obtener las etiquetas <li>
+        var productMatch = false;
 
+        // Verificar coincidencia en el título
         if (title) {
-            txtValueTitle = title.textContent || title.innerText;
-            if (txtValueTitle.toUpperCase().indexOf(filter) > -1) {
+            var txtValueTitle = normalizeText(title.textContent || title.innerText).toUpperCase();
+            if (txtValueTitle.includes(filter)) {
                 productMatch = true;
             }
         }
 
-        for (j = 0; j < paragraphs.length; j++) {
-            txtValueParagraph = paragraphs[j].textContent || paragraphs[j].innerText;
-            if (txtValueParagraph.toUpperCase().indexOf(filter) > -1) {
+        // Verificar coincidencia en los párrafos
+        for (var j = 0; j < paragraphs.length; j++) {
+            var txtValueParagraph = normalizeText(paragraphs[j].textContent || paragraphs[j].innerText).toUpperCase();
+            if (txtValueParagraph.includes(filter)) {
                 productMatch = true;
-                break; // No es necesario buscar más en los párrafos
+                break;
             }
         }
 
-        if (productMatch) {
-            productBoxes[i].style.display = "";
-        } else {
-            productBoxes[i].style.display = "none";
+        // Verificar coincidencia en las etiquetas <li>
+        for (var k = 0; k < listItems.length; k++) {
+            var txtValueListItem = normalizeText(listItems[k].textContent || listItems[k].innerText).toUpperCase();
+            if (txtValueListItem.includes(filter)) {
+                productMatch = true;
+                break;
+            }
         }
+
+        // Mostrar u ocultar la caja del producto
+        productBoxes[i].style.display = productMatch ? "" : "none";
     }
 }
+
+// Función auxiliar para normalizar texto (eliminar acentos y caracteres especiales)
+function normalizeText(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Elimina acentos
+}
+
 </script>
 </head>
 <body>
 <!--  Free CSS Templates from www.templatemo.com -->
+
+
 
 <div id="templatemo_container">
 	<div id="templatemo_menu">
@@ -57,7 +73,10 @@ function searchProducts() {
             <li><a href="#">Contact</a></li>
     	</ul>
     </div> <!-- end of menu -->
-    
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Buscar Boletin Historico...">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </div>
     <div id="templatemo_header">
     	<div id="templatemo_special_offers">
         	<p>
@@ -129,11 +148,15 @@ function searchProducts() {
                 <h1> Título libro: <span>(autor:)</span></h1>
    	      <img src="images/ref01.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                	<p>editorial : daniel </p>
                     <p>ISBN: </p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:6,nivel:c-Posicion:14</p>
+                    <p>Ubicacion/Fisica:</p>
+                    <li>Historia</li>
+                    <li>Estante: 3</li>
+                    <li>nivel: A </A></li>
+                    <li>Posicion: 45</li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                 </div>
@@ -146,11 +169,15 @@ function searchProducts() {
             	<h1>titulo libro <span>()autor:</span></h1>
        	    <img src="images/ref02.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                	<p>editorial : Joneider </p>
                     <p>ISBN: </p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:6,nivel:c-Posicion:14</p>
+                    <p>Ubicacion/Fisica:</p>
+                    <li>Historia</li>
+                    <li>Estante: 6</li>
+                    <li>nivel: C</li>
+                    <li>Posicion:14</li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                     
@@ -165,11 +192,15 @@ function searchProducts() {
             	<h1>Libro Referencia 3 <span>(by Famous Author)</span></h1>
    	      <img src="images/ref03.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                	<p>editorial : Joneider </p>
                     <p>ISBN: </p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:6,nivel:c-Posicion:14</p>
+                    <p>Ubicacion/Fisica:</p>
+                    <li>Historia</li>
+                    <li>Estante: 6</li>
+                    <li>nivel: C</li>
+                    <li>Posicion:14</li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                 </div>
@@ -182,11 +213,15 @@ function searchProducts() {
             	<h1>libro Referencia 4 <span>(by Japanese Name)</span></h1>
             	<img src="images/ref04.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                	<p>editorial : Joneider </p>
                     <p>ISBN: </p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:6,nivel:c-Posicion:14</p>
+                    <p>Ubicacion/Fisica:</p>
+                    <li>Historia</li>
+                    <li>Estante: 6</li>
+                    <li>nivel: C</li>
+                    <li>Posicion:14</li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                 </div>
@@ -202,11 +237,15 @@ function searchProducts() {
                 <h1>libro Referencia 5 <span></span></h1>
    	      <img src="images/ref05.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                	<p>editorial : Joneider </p>
                     <p>ISBN: </p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:6,nivel:c-Posicion:14</p>
+                    <p>Ubicacion/Fisica:</p>
+                    <li>Historia</li>
+                    <li>Estante: 6</li>
+                    <li>nivel: C</li>
+                    <li>Posicion:14</li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                   
@@ -220,11 +259,15 @@ function searchProducts() {
             	<h1>Libro Referencia 6<span>()</span></h1>
        	    <img src="images/ref06.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                	<p>editorial : Joneider </p>
                     <p>ISBN: </p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:6,nivel:c-Posicion:14</p>
+                    <p>Ubicacion/Fisica:</p>
+                    <li>Historia</li>
+                    <li>Estante: 6</li>
+                    <li>nivel: C</li>
+                    <li>Posicion:14</li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                    
@@ -238,11 +281,15 @@ function searchProducts() {
             	<h1>Libro Referencia 7<span>(by Famous Author)</span></h1>
    	      <img src="images/ref07.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                	<p>editorial : Joneider </p>
                     <p>ISBN: </p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:6,nivel:c-Posicion:14</p>
+                    <p>Ubicacion/Fisica:</p>
+                    <li>Historia</li>
+                    <li>Estante: 6</li>
+                    <li>nivel: C</li>
+                    <li>Posicion: 14</li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                    
@@ -258,15 +305,15 @@ function searchProducts() {
             	<h1>Libro Refrencia 8 <span>(by Japanese Name)</span></h1>
             	<img src="images/ref08.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                	<p>editorial : Joneider </p>
                     <p>ISBN: </p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: 
+                    <p>Ubicacion/Fisica:</p>
                     <li>Historia</li>
-                    <li>Estante:6</li>
-                    <li>nivel:c</li>
-                    <li>Posicion:44 </li>
+                    <li>Estante: 6</li>
+                    <li>nivel: C</li>
+                    <li>Posicion:14</li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>     
                 </div>
@@ -288,9 +335,9 @@ function searchProducts() {
                     <p>formato: </p>
                     <p>Ubicacion/Fisica: 
                     <li>Historia</li>
-                    <li>Estante:6</li>
+                    <li>Estante: 6</li>
                     <li>nivel:c</li>
-                    <li>Posicion:44 </li>
+                    <li>Posicion: 44 </li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                 </div>
@@ -309,9 +356,9 @@ function searchProducts() {
                     <p>formato: </p>
                     <p>Ubicacion/Fisica: 
                     <li>Historia</li>
-                    <li>Estante:6</li>
-                    <li>nivel:c</li>
-                    <li>Posicion:44 </li>
+                    <li>Estante: 6</li>
+                    <li>nivel: c</li>
+                    <li>Posicion: 44 </li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                    
@@ -331,8 +378,8 @@ function searchProducts() {
                     <p>formato: </p>
                     <p>Ubicacion/Fisica:<p>
                     <li>Historia</li>
-                    <li>Estante:6</li>
-                    <li>nivel:c</li>
+                    <li>Estante: 6</li>
+                    <li>nivel: c</li>
                     <li>Posicion:44 </li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
@@ -414,7 +461,7 @@ function searchProducts() {
             	<h1>Titulo libro<span>(Autor:)</span></h1>
    	      <img src="images/ref15.jpg" alt="image" />
                 <div class="product_info">
-                	<<p>editorial : </p>
+                	<p>editorial : </p>
                     <p>ISBN:</p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
@@ -459,16 +506,15 @@ function searchProducts() {
                 <h1>titulo libro <span>(autor:)</span></h1>
    	      <img src="images/ref17.jpg" alt="image" />
                 <div class="product_info">
-                	<p>titulo de libro:</p>
-                    <p>Autor: </p>
-                    <p>Años Publicacion:  </p>
-                    <p>editorial : Sucesión presidencial - Cipriano Castro - Rafael Simón Urbina Sucesos de Febrero de 1936 </p>
-                    <p>ISBN: Simón Bolívar - Sucesos de Febrero de 1936 -Lagunillas de Agua, Sucesión Crespo - Historia de Venezuela - Revolución Venezolana</p>
+                    <p>editorial : </p>
+                    <p>ISBN:</p>
                     <p>Palabra clave:</p>
-                    <p>Resumen description:</p>
-                    <p>numero Pagina :</p> 
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:3,nivel:A-Posicion:12</p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante:6</li>
+                    <li>nivel:c</li>
+                    <li>Posicion:44 </li>
                     <div class="buy_now_button"><a href="boletin1.html">Descargar</a></div>
                   
                 </div>
@@ -478,19 +524,18 @@ function searchProducts() {
             <div class="cleaner_with_width">&nbsp;</div>
             
             <div class="templatemo_product_box">
-            	<h1>Libro Referencia 17<span>()</span></h1>
+            	<h1>titulo Libro <span>(autor)</span></h1>
        	    <img src="images/ref18.jpg" alt="image" />
                 <div class="product_info">
-                	<p>titulo de libro:</p>
-                    <p>Autor: </p>
-                    <p>Años Publicacion:  </p>
-                    <p>editorial : Sucesión presidencial - Cipriano Castro - Rafael Simón Urbina Sucesos de Febrero de 1936 </p>
-                    <p>ISBN: Simón Bolívar - Sucesos de Febrero de 1936 -Lagunillas de Agua, Sucesión Crespo - Historia de Venezuela - Revolución Venezolana</p>
+                    <p>editorial : </p>
+                    <p>ISBN:</p>
                     <p>Palabra clave:</p>
-                    <p>Resumen description:</p>
-                    <p>numero Pagina :</p> 
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:4 ,nivel:b-Posicion:32</p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante:6</li>
+                    <li>nivel:c</li>
+                    <li>Posicion:44 </li>
                     <div class="buy_now_button"><a href="subpage.html">Descargar</a></div>
                    
                 </div>
@@ -500,17 +545,18 @@ function searchProducts() {
     <div class="cleaner_with_height">&nbsp;</div>
     
     <div class="templatemo_product_box">
-            	<h1>libro Referencia 18 <span>(by Famous Author)</span></h1>
+            	<h1>titulo libro <span>(autor)</span></h1>
    	      <img src="images/ref19.jpg" alt="image" />
                 <div class="product_info">
-                	<p>Fecha Publicación:</p>
-                    <p>Volumen:</p>
-                    <p>Numero Edicion: </p>
-                    <p>Tema Princial:</p>
-                    <p>Palabra Clave:</p>
-                    <p>Intitución:</p>
-                    <p>ubicación:</p>
-                    <p>Indentificador:</p> 
+                    <p>editorial : </p>
+                    <p>ISBN:</p>
+                    <p>Palabra clave:</p>
+                    <p>formato: </p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante:6</li>
+                    <li>nivel:c</li>
+                    <li>Posicion:44 </li>
                     <div class="buy_now_button"><a href="boletin2.html">Descargar</a></div>
                     
                 </div>
@@ -523,14 +569,15 @@ function searchProducts() {
             	<h1>Libro Referencia 19 <span>(by Japanese Name)</span></h1>
             	<img src="images/ref20.jpg" alt="image" />
                 <div class="product_info">
-                	<p>Fecha Publicación:</p>
-                    <p>Volumen:</p>
-                    <p>Numero Edicion: </p>
-                    <p>Tema Princial:</p>
-                    <p>Palabra Clave:</p>
-                    <p>Intitución:</p>
-                    <p>ubicación:</p>
-                    <p>Indentificador:</p> 
+                    <p>editorial : </p>
+                    <p>ISBN:</p>
+                    <p>Palabra clave:</p>
+                    <p>formato: </p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante:6</li>
+                    <li>nivel:c</li>
+                    <li>Posicion:44 </li>
                     <div class="buy_now_button"><a href="subpage.html">Descagar</a></div>
                     
                 </div>
@@ -541,19 +588,18 @@ function searchProducts() {
        <p style="background-image: url('images/templatemo_h1_bg.jpg'); background-size: 80% 80px; text-align: center; padding: 20px;font-size: 14px;">Los Sucesos de Febrero de 1936 .......Pag 123 </p> 
             <div class="templatemo_product_box">
             	
-                <h1>libro Referencia 19 <span></span></h1>
+                <h1>titulo libro  <span>autor</span></h1>
    	      <img src="images/ref21.jpg" alt="image" />
                 <div class="product_info">
-                	<p>titulo de libro:</p>
-                    <p>Autor: </p>
-                    <p>Años Publicacion:  </p>
-                    <p>editorial : Sucesión presidencial - Cipriano Castro - Rafael Simón Urbina Sucesos de Febrero de 1936 </p>
-                    <p>ISBN: Simón Bolívar - Sucesos de Febrero de 1936 -Lagunillas de Agua, Sucesión Crespo - Historia de Venezuela - Revolución Venezolana</p>
+                    <p>editorial : </p>
+                    <p>ISBN:</p>
                     <p>Palabra clave:</p>
-                    <p>Resumen description:</p>
-                    <p>numero Pagina :</p> 
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:3,nivel:A-Posicion:12</p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante:6</li>
+                    <li>nivel:c</li>
+                    <li>Posicion:44 </li>
                     <div class="buy_now_button"><a href="boletin1.html">Descargar</a></div>
                   
                 </div>
@@ -563,19 +609,18 @@ function searchProducts() {
             <div class="cleaner_with_width">&nbsp;</div>
             
             <div class="templatemo_product_box">
-            	<h1>Libro Referencia 20<span>()</span></h1>
+            	<h1>titulo libro <span>(autor)</span></h1>
        	    <img src="images/ref22.jpg" alt="image" />
                 <div class="product_info">
-                	<p>titulo de libro:</p>
-                    <p>Autor: </p>
-                    <p>Años Publicacion:  </p>
-                    <p>editorial : Sucesión presidencial - Cipriano Castro - Rafael Simón Urbina Sucesos de Febrero de 1936 </p>
-                    <p>ISBN: Simón Bolívar - Sucesos de Febrero de 1936 -Lagunillas de Agua, Sucesión Crespo - Historia de Venezuela - Revolución Venezolana</p>
+                    <p>editorial : </p>
+                    <p>ISBN:</p>
                     <p>Palabra clave:</p>
-                    <p>Resumen description:</p>
-                    <p>numero Pagina :</p> 
                     <p>formato: </p>
-                    <p>Ubicacion/Fisica: Historia,Estante:4 ,nivel:b-Posicion:32</p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante: 6</li>
+                    <li>nivel: c</li>
+                    <li>Posicion: 44 </li>
                     <div class="buy_now_button"><a href="subpage.html">Descargar</a></div>
                    
                 </div>
@@ -585,17 +630,18 @@ function searchProducts() {
     <div class="cleaner_with_height">&nbsp;</div>
     
     <div class="templatemo_product_box">
-            	<h1>libro referencia 21<span>(by Famous Author)</span></h1>
+            	<h1>titulo libro<span>( autor)</span></h1>
    	      <img src="images/ref23.jpg" alt="image" />
                 <div class="product_info">
-                	<p>Fecha Publicación:</p>
-                    <p>Volumen:</p>
-                    <p>Numero Edicion: </p>
-                    <p>Tema Princial:</p>
-                    <p>Palabra Clave:</p>
-                    <p>Intitución:</p>
-                    <p>ubicación:</p>
-                    <p>Indentificador:</p> 
+                    <p>editorial : </p>
+                    <p>ISBN:</p>
+                    <p>Palabra clave:</p>
+                    <p>formato: </p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante:6</li>
+                    <li>nivel:c</li>
+                    <li>Posicion:44 </li>
                     <div class="buy_now_button"><a href="boletin2.html">Descargar</a></div>
                     
                 </div>
@@ -605,17 +651,18 @@ function searchProducts() {
             <div class="cleaner_with_width">&nbsp;</div>
             
             <div class="templatemo_product_box">
-            	<h1>Referencia 22 <span>(by Japanese Name)</span></h1>
+            	<h1>titulo libro <span>(Autor)</span></h1>
             	<img src="images/ref24.jpg" alt="image" />
                 <div class="product_info">
-                	<p>Fecha Publicación:</p>
-                    <p>Volumen:</p>
-                    <p>Numero Edicion: </p>
-                    <p>Tema Princial:</p>
-                    <p>Palabra Clave:</p>
-                    <p>Intitución:</p>
-                    <p>ubicación:</p>
-                    <p>Indentificador:</p> 
+                    <p>editorial : </p>
+                    <p>ISBN:</p>
+                    <p>Palabra clave:</p>
+                    <p>formato: </p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante:6</li>
+                    <li>nivel:c</li>
+                    <li>Posicion:44 </li> 
                     <div class="buy_now_button"><a href="subpage.html">Descagar</a></div>
                     
                 </div>
@@ -629,15 +676,15 @@ function searchProducts() {
                 <h1>titulo libro <span>autor</span></h1>
    	      <img src="images/ref25.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                    <p>editorial : </p>
                     <p>ISBN:</p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
                     <p>Ubicacion/Fisica:<p>
                     <li>Historia</li>
-                    <li>Estante:6</li>
+                    <li>Estante: 6</li>
                     <li>nivel:c</li>
-                    <li>Posicion:44 </li>
+                    <li>Posicion: 48 </li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                 </div>
@@ -650,7 +697,7 @@ function searchProducts() {
             	<h1>Titulo Libro<span>(Autor:)</span></h1>
        	    <img src="images/ref26.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                    <p>editorial : </p>
                     <p>ISBN:</p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
@@ -658,7 +705,7 @@ function searchProducts() {
                     <li>Historia</li>
                     <li>Estante:6</li>
                     <li>nivel:c</li>
-                    <li>Posicion:44 </li>
+                    <li>Posicion: 54 </li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                    
@@ -672,7 +719,7 @@ function searchProducts() {
             	<h1>titulo libro <span>(Autor)</span></h1>
    	      <img src="images/ref27.jpg" alt="image" />
                 <div class="product_info">
-                	<p>editorial : </p>
+                    <p>editorial : </p>
                     <p>ISBN:</p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
@@ -714,7 +761,7 @@ function searchProducts() {
             <div class="cleaner_with_height">&nbsp;</div>
             <div class="templatemo_product_box">
             	
-                <h1>titulo autor <span></span></h1>
+                <h1>titulo libro <span> (autor)</span></h1>
    	      <img src="images/ref29.jpg" alt="image" />
                 <div class="product_info">
                 	<p>editorial : </p>
@@ -738,7 +785,7 @@ function searchProducts() {
             	<h1>titulo libro<span>(autor)</span></h1>
        	    <img src="images/ref30.jpg" alt="image" />
                 <div class="product_info">
-                	<<p>editorial : </p>
+                	<p>editorial : </p>
                     <p>ISBN:</p>
                     <p>Palabra clave:</p>
                     <p>formato: </p>
@@ -784,14 +831,15 @@ function searchProducts() {
             	<h1> titulo libro <span>(autor)</span></h1>
             	<img src="images/ref32.jpg" alt="image" />
                 <div class="product_info">
-                	<p>Fecha Publicación:</p>
-                    <p>Volumen:</p>
-                    <p>Numero Edicion: </p>
-                    <p>Tema Princial:</p>
-                    <p>Palabra Clave:</p>
-                    <p>Intitución:</p>
-                    <p>ubicación:</p>
-                    <p>Indentificador:</p> 
+                    <p>editorial :</p>
+                    <p>ISBN:</p>
+                    <p>Palabra clave:</p>
+                    <p>formato: </p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante:6</li>
+                    <li>nivel:c</li>
+                    <li>Posicion: 44 </li> 
                     <div class="buy_now_button"><a href="subpage.html">Descagar</a></div>
                     
                 </div>
@@ -817,7 +865,7 @@ function searchProducts() {
                     <li>Posicion: </li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
-                   v>
+                   
                   
                 </div>
                 <div class="cleaner">&nbsp;</div>
@@ -835,9 +883,9 @@ function searchProducts() {
                     <p>formato: </p>
                     <p>Ubicacion/Fisica:<p>
                     <li>Historia</li>
-                    <li>Estante:6</li>
-                    <li>nivel:c</li>
-                    <li>Posicion:44 </li>
+                    <li>Estante: 6</li>
+                    <li>nivel: c</li>
+                    <li>Posicion: 44 </li>
                     <div class="buy_now_button"><a href="">Ir Pagina</a></div>
                     <div class="detail_button"><a href="">Descargar libro</a></div>
                    
@@ -849,17 +897,18 @@ function searchProducts() {
     <div class="cleaner_with_height">&nbsp;</div>
     
     <div class="templatemo_product_box">
-            	<h1>Gardening <span>(by Famous Author)</span></h1>
+            	<h1>titulo libro <span>(autor)</span></h1>
    	      <img src="images/ref35.jpg" alt="image" />
                 <div class="product_info">
-                	<p>Fecha Publicación:</p>
-                    <p>Volumen:</p>
-                    <p>Numero Edicion: </p>
-                    <p>Tema Princial:</p>
-                    <p>Palabra Clave:</p>
-                    <p>Intitución:</p>
-                    <p>ubicación:</p>
-                    <p>Indentificador:</p> 
+                    <p>editorial : </p>
+                    <p>ISBN:</p>
+                    <p>Palabra clave:</p>
+                    <p>formato: </p>
+                    <p>Ubicacion/Fisica:<p>
+                    <li>Historia</li>
+                    <li>Estante:6</li>
+                    <li>nivel:c</li>
+                    <li>Posicion:44 </li>
                     <div class="buy_now_button"><a href="boletin2.html">Descargar</a></div>
                     
                 </div>
